@@ -1,5 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
+import Sidebar from "./components/Sidebar"
+import Map from "./components/Map"
 import {
   CogIcon,
   CollectionIcon,
@@ -12,6 +14,7 @@ import {
   XIcon,
 } from '@heroicons/react/outline'
 import { SearchIcon } from '@heroicons/react/solid'
+
 
 const sidebarNavigation = [
   { name: 'Home', href: '#', icon: HomeIcon, current: false },
@@ -45,38 +48,8 @@ export default function Example() {
       */}
       <div className="h-full flex">
         {/* Narrow sidebar */}
-        <div className="hidden w-28 bg-indigo-700 overflow-y-auto md:block">
-          <div className="w-full py-6 flex flex-col items-center">
-            <div className="flex-shrink-0 flex items-center">
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white"
-                alt="Workflow"
-              />
-            </div>
-            <div className="flex-1 mt-6 w-full px-2 space-y-1">
-              {sidebarNavigation.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className={classNames(
-                    item.current ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white',
-                    'group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium'
-                  )}
-                  aria-current={item.current ? 'page' : undefined}
-                >
-                  <item.icon
-                    className={classNames(
-                      item.current ? 'text-white' : 'text-indigo-300 group-hover:text-white',
-                      'h-6 w-6'
-                    )}
-                    aria-hidden="true"
-                  />
-                  <span className="mt-2">{item.name}</span>
-                </a>
-              ))}
-            </div>
-          </div>
+        <div className="hidden h-full w-64 md:block">
+          <Sidebar/>
         </div>
 
         {/* Mobile menu */}
@@ -103,7 +76,7 @@ export default function Example() {
                 leaveFrom="translate-x-0"
                 leaveTo="-translate-x-full"
               >
-                <div className="relative max-w-xs w-full bg-indigo-700 pt-5 pb-4 flex-1 flex flex-col">
+                <div className="relative max-w-xs w-full bg-orange-500 flex-1 flex flex-col">
                   <Transition.Child
                     as={Fragment}
                     enter="ease-in-out duration-300"
@@ -116,7 +89,7 @@ export default function Example() {
                     <div className="absolute top-1 right-0 -mr-14 p-1">
                       <button
                         type="button"
-                        className="h-12 w-12 rounded-full flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white"
+                        className="h-12 w-12 rounded-full flex items-center justify-center"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         <XIcon className="h-6 w-6 text-white" aria-hidden="true" />
@@ -124,41 +97,7 @@ export default function Example() {
                       </button>
                     </div>
                   </Transition.Child>
-                  <div className="flex-shrink-0 px-4 flex items-center">
-                    <img
-                      className="h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white"
-                      alt="Workflow"
-                    />
-                  </div>
-                  <div className="mt-5 flex-1 h-0 px-2 overflow-y-auto">
-                    <nav className="h-full flex flex-col">
-                      <div className="space-y-1">
-                        {sidebarNavigation.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(
-                              item.current
-                                ? 'bg-indigo-800 text-white'
-                                : 'text-indigo-100 hover:bg-indigo-800 hover:text-white',
-                              'group py-2 px-3 rounded-md flex items-center text-sm font-medium'
-                            )}
-                            aria-current={item.current ? 'page' : undefined}
-                          >
-                            <item.icon
-                              className={classNames(
-                                item.current ? 'text-white' : 'text-indigo-300 group-hover:text-white',
-                                'mr-3 h-6 w-6'
-                              )}
-                              aria-hidden="true"
-                            />
-                            <span>{item.name}</span>
-                          </a>
-                        ))}
-                      </div>
-                    </nav>
-                  </div>
+                  <Sidebar/>
                 </div>
               </Transition.Child>
               <div className="flex-shrink-0 w-14" aria-hidden="true">
@@ -259,10 +198,7 @@ export default function Example() {
             <main className="flex-1 overflow-y-auto">
               {/* Primary column */}
               <section aria-labelledby="primary-heading" className="min-w-0 flex-1 h-full flex flex-col lg:order-last">
-                <h1 id="primary-heading" className="sr-only">
-                  Photos
-                </h1>
-                {/* Your content */}
+                <Map />
               </section>
             </main>
 
